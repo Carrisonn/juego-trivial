@@ -1,0 +1,16 @@
+{
+  "name": "juego-preguntas-respuestas",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2",
+    "vite": "^6.3.1"
+  },
+  "dependencies": {
+    "@csstools/normalize.css": "^12.1.1"
+  }
+}
