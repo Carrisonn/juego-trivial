@@ -1,6 +1,12 @@
+/** Global styles */
 :root {
-  --bodyColor: #1d1b1b;
+  --bodyColor: #181717;
+  --cardColor: #222121;
   --textColor: #ffffff;
+  --borderColor: #7c7a7a;
+  --btnColor: #49a1e9;
+  --btnHoverColor: #3885c4;
+  --footerColor: #582c8a;
 }
 
 html {
@@ -16,12 +22,97 @@ html {
 }
 
 body {
+  height: 100dvh;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.6rem;
   background-color: var(--bodyColor);
+  color: var(--textColor);
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 .container {
   width: min(90%, 120rem);
   margin: 0 auto;
+}
+
+.btn {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: var(--btnColor);
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  all: unset;
+}
+
+/** Main **/
+h1 {
+  font-size: 4rem;
+  text-decoration: underline;
+}
+
+p {
+  font-size: 2rem;
+}
+
+.topics-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--borderColor);
+  border-radius: 0.5rem;
+  background-color: var(--cardColor);
+
+  & img {
+    border-radius: 0.5rem;
+  }
+
+  & a {
+    width: fit-content;
+    transition: transform 0.3s ease;
+  }
+
+  & a:hover {
+    background-color: var(--btnHoverColor);
+    transform: scale(1.1);
+  }
+}
+
+footer {
+  height: 10rem;
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, var(--footerColor), var(--bodyColor));
+
+  & a {
+    font-size: 2rem;
+    cursor: pointer;
+    text-decoration: wavy underline;
+    transition: transform 0.3s ease;
+  }
+
+  & a:hover {
+    text-decoration: none;
+    transform: scale(1.1);
+  }
 }
