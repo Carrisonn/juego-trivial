@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html">
+  <link rel="icon" href="./src/images/game-icon.svg" type="image/svg+xml">
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+  <link rel="preload" href="./src/css/styles.css" as="style">
+  <link rel="stylesheet" href="./src/css/styles.css">
+  <script type="module" src="./src/js/game/main.js"></script>
+</head>
+
+<body>
+  <main class="container">
+    <h1 class="title-topic"></h1>
+
+    <div class="container-game">
+      <div class="container-user-stats">
+        <div class="container-lives-tries">
+          <p class="lives">Vidas: <span id="lives"></span></p>
+          <p class="tries">Intentos: <span id="tries"></span></p>
+          <p class="combo">Combos: <span id="combo"></span></p>
+        </div>
+        <div>
+          <p class="score">Puntos: <span id="score"></span></p>
+        </div>
+      </div><!-- user-stats-container -->
+
+      <p id="question"></p>
+      <form id="form">
+        <input type="text" id="answer" spellcheck="true" placeholder="Tu respuesta aquí...">
+        <button class="btn btn-submit" type="submit">Comprobar</button>
+      </form>
+      <button class="btn btn-tutorial">¿Cómo se juega?</button>
+    </div><!-- container-game -->
+  </main>
+
+  <footer>
+    <p>Made with ❤️ by</p> <a href="https://github.com/Carrisonn" target="_blank">Carrison</a>
+  </footer>
+</body>
+
+</html>
