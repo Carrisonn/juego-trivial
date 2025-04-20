@@ -1,28 +1,28 @@
-import { topicsSet } from './game/questionSets.js';
-
+import { topicsSet } from './game/topicSets.js';
 
 function createTopicCards() {
-  topicsSet.forEach(topic => {
+  const $topicContainer = document.querySelector('.topics-container');
+
+  topicsSet.forEach((topicObj, index) => {
+    const { topic, img } = topicObj;
+
     const $topicCard = document.createElement('div');
     $topicCard.classList.add('topic-card');
 
     const $topicImg = document.createElement('img');
-    $topicImg.src = topic[0].img;
-    $topicImg.alt = `Tema ${topic[0].topic}`;
-    $topicImg.title = `Tema ${topic[0].topic}`;
+    $topicImg.src = img;
+    $topicImg.alt = `${topic}`;
+    $topicImg.title = `Temática sobre ${topic}`;
     $topicImg.loading = 'lazy';
 
     const $topicLink = document.createElement('a');
-    $topicLink.classList.add('btn');
-    $topicLink.textContent = topic[0].topic;
-    $topicLink.dataset.topic = topic[0].id;
-    $topicLink.href = '../game.html';
-    $topicLink.target = '_blank';
-    //$topicLink.addEventListener('click', handleTopicClick);
+    $topicLink.classList.add('btn', 'btn-topic');
+    $topicLink.textContent = topic;
+    $topicLink.href = `../game.html?id=${index}`;
 
     $topicCard.appendChild($topicImg);
     $topicCard.appendChild($topicLink);
-    document.querySelector('.topics-container').appendChild($topicCard);
+    $topicContainer.appendChild($topicCard);
   });
 }
 
