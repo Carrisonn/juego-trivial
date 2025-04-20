@@ -116,3 +116,9 @@ footer {
     transform: scale(1.1);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .topics-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
