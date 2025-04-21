@@ -5,8 +5,21 @@
   --textColor: #ffffff;
   --borderColor: #7c7a7a;
   --btnColor: #49a1e9;
-  --btnHoverColor: #3885c4;
+  --btnHoverColor: #338fda;
   --footerColor: #582c8a;
+  --gameContainerColor: #d4d1d1;
+  --blackColor: #000000;
+  --userLivesColor: #5bbd63;
+  --userLivesFontColor: #113314;
+  --userTriesColor: #e0b55d;
+  --userTriesFontColor: #3d3015;
+  --userComboColor: #e46d6d;
+  --userComboFontColor: #642222;
+  --userScoreColor: #af6af0;
+  --userScoreFontColor: #3d1e5a;
+
+  --shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.70);
+  --fontSize: 2rem;
 }
 
 html {
@@ -44,6 +57,7 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   background-color: var(--btnColor);
+  font-size: var(--fontSize);
 }
 
 img {
@@ -61,7 +75,7 @@ h1 {
 }
 
 p {
-  font-size: 2rem;
+  font-size: var(--fontSize);
 }
 
 .topics-container {
@@ -105,7 +119,7 @@ footer {
   background: linear-gradient(to top, var(--footerColor), var(--bodyColor));
 
   & a {
-    font-size: 2rem;
+    font-size: var(--fontSize);
     cursor: pointer;
     text-decoration: wavy underline;
     transition: transform 0.3s ease;
@@ -115,6 +129,122 @@ footer {
     text-decoration: none;
     transform: scale(1.1);
   }
+}
+
+/** Game **/
+.container-game {
+  width: min(70%, 120rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+  background-color: var(--gameContainerColor);
+  color: var(--blackColor);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.container-user-stats {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & p {
+    margin: 0;
+    padding: 1rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+  }
+}
+
+.container-lives-tries {
+  display: flex;
+  gap: 2rem;
+
+  & .lives {
+    background-color: var(--userLivesColor);
+    color: var(--userLivesFontColor);
+  }
+
+  & .tries {
+    background-color: var(--userTriesColor);
+    color: var(--userTriesFontColor);
+  }
+}
+
+.container-score-combo {
+  display: flex;
+  gap: 2rem;
+
+  & .combo {
+    background-color: var(--userComboColor);
+    color: var(--userComboFontColor);
+  }
+
+  & .score {
+    background-color: var(--userScoreColor);
+    color: var(--userScoreFontColor);
+  }
+}
+
+#question {
+  width: fit-content;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+#form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  & input {
+    width: 50%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--borderColor);
+    font-size: var(--fontSize);
+    box-shadow: var(--shadow);
+  }
+
+  & input:focus {
+    outline: none;
+  }
+
+  & .btn-submit {
+    border: none;
+    font-size: var(--fontSize);
+    box-shadow: var(--shadow);
+    color: var(--textColor);
+    transition: transform 0.3s ease;
+  }
+
+  & .btn-submit:hover {
+    background-color: var(--btnHoverColor);
+    transform: scale(1.1);
+  }
+}
+
+.btn-tutorial {
+  width: fit-content;
+  margin-top: 3rem;
+  border: none;
+  color: var(--textColor);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.btn-tutorial:hover {
+  background-color: var(--btnHoverColor);
+  transform: scale(1.1);
 }
 
 @media screen and (max-width: 768px) {
