@@ -4,7 +4,7 @@ import { bonusToast, correctAnswerToast, errorToast } from './toasts.js';
 
 
 // States
-let lives = 5;
+let lives = 3;
 let tries = 3;
 let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
@@ -27,12 +27,14 @@ function handleTopicSelected() {
   handleEventListeners(questionsSet)
 }
 
+// make the document and game title dynamic
 function handleTitleTopic(topicSet) {
   const { topic } = topicSet;
   document.title = `Preguntas sobre ${topic}`;
   $titleTopic.textContent = topic;
 }
 
+// render the states and the question in the UI, reset the object to prevent the user from submitting the same response multiple times
 function renderTopicSelected(questionsSet) {
   const question = questionsSet[questionPosition].question;
 
@@ -41,20 +43,22 @@ function renderTopicSelected(questionsSet) {
   $score.textContent = score;
   $combo.textContent = combo;
   $question.textContent = question;
-
-  userAnswerObj.userAnswer = '';
   $form.reset();
+  userAnswerObj.userAnswer = '';
 }
 
+// assign events to read the user value and when submit the answer
 function handleEventListeners(questionsSet) {
   $answer.addEventListener('input', handleUserAnswer)
   $form.addEventListener('submit', event => validateAnswer(event, questionsSet));
 }
 
+// pass the user answer to an object
 function handleUserAnswer(event) {
   userAnswerObj.userAnswer = event.target.value.trim().toLowerCase();
 }
 
+// validate the user answer and make decisions consequently
 function validateAnswer(event, questionsSet) {
   event.preventDefault();
 
@@ -62,38 +66,46 @@ function validateAnswer(event, questionsSet) {
   const { userAnswer } = userAnswerObj
   const emptyValue = userAnswer === '';
   const isCorrectAnswer = userAnswer === correctAnswer;
-  //const isIncorrectAnswer = userAnswer !== correctAnswer;
+  const isIncorrectAnswer = userAnswer !== correctAnswer;
 
   if (emptyValue) return errorToast.fire({ title: 'Debes introducir una respuesta' });
   if (isCorrectAnswer) return handleCorrectAnswer(questionsSet);
-  //if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
+  if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
 }
 
 function handleCorrectAnswer(questionsSet) {
-  correctAnswerToast.fire({ title: '+10 Puntos' });
   score += 10;
   combo += 1;
   tries = 3;
+  correctAnswerToast.fire({ title: '+10 Puntos' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
-  if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
+  //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
 
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
 
-//function handleIncorrectAnswer(questionsSet) {
-//  console.log('INCORRECT ANSWER');
-//}
+function handleIncorrectAnswer(questionsSet) {
+  //const userHasNoLivesAndTries = lives === 0 && tries === 1;
+  // const userHasNoTries = tries === 1;
+  //if (userHasNoLivesAndTries) return handleGameOver();
+  //if (userHasNoTries) return handleFailedQuestion();
+
+  tries--;
+  combo = 0;
+  errorToast.fire({ title: 'Respuesta incorrecta' });
+  renderTopicSelected(questionsSet);
+}
 
 function handleUserReward(questionsSet) {
-  bonusToast.fire({ title: `Has conseguido encadenar ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
   lives++;
   score += 50;
+  bonusToast.fire({ title: `Has conseguido encadenar ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
 
-  if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
+  //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
   combo = 0;
-  bonusCondition += 2;
+  bonusCondition += 1;
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
