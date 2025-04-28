@@ -14,17 +14,23 @@ let questionPosition = 0; // topic object => questionsSet is array of objects =>
 
 // recovering the position of the topic set from the url
 function handleTopicSelected() {
-  const params = new URLSearchParams(window.location.search);
-  const topicPosition = params.get('id'); // 0, 1, 2, 3...
-  const noExitsTopicPosition = topicPosition === undefined || topicPosition === null || topicPosition === '';
-  if (noExitsTopicPosition) return window.location.href = './index.html';
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const topicPosition = params.get('id'); // 0, 1, 2, 3...
+    const noExitsTopicPosition = topicPosition === undefined || topicPosition === null || topicPosition === '';
+    if (noExitsTopicPosition) return window.location.href = './index.html';
 
-  const topicSelectedByUser = topicsSet[topicPosition]; // injecting the postion of the topic set selected in the array of topics
-  const { questionsSet } = topicSelectedByUser
+    const topicSelectedByUser = topicsSet[topicPosition]; // injecting the postion of the topic set selected in the array of topics
+    const { questionsSet } = topicSelectedByUser
 
-  handleTitleTopic(topicSelectedByUser);
-  renderTopicSelected(questionsSet);
-  handleEventListeners(questionsSet)
+    handleTitleTopic(topicSelectedByUser);
+    renderTopicSelected(questionsSet);
+    handleEventListeners(questionsSet)
+  } catch (error) {
+    console.error(error)
+    alert(`Ha habido un error: ${error}`);
+    window.location.href = './index.html';
+  }
 }
 
 // make the document and game title dynamic
