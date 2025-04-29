@@ -6,5 +6,6 @@ export const $combo = document.querySelector('#combo');
 export const $question = document.querySelector('#question');
 export const $answer = document.querySelector('#answer');
 export const $form = document.querySelector('#form');
+export const $containerGame = document.querySelector('.container-game');
 
 export const userAnswerObj = { userAnswer: '' };
