@@ -11,7 +11,7 @@ function createTopicCards() {
 
     const $topicImg = document.createElement('img');
     $topicImg.src = img;
-    $topicImg.alt = `${topic}`;
+    $topicImg.alt = `Imagen sobre ${topic}`;
     $topicImg.title = `Temática sobre ${topic}`;
     $topicImg.loading = 'lazy';
 
