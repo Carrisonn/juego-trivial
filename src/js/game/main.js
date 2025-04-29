@@ -1,5 +1,5 @@
 import { topicsSet } from './topicSets.js';
-import { $titleTopic, $lives, $tries, $score, $combo, $question, $answer, $form, userAnswerObj } from './constants.js';
+import { $titleTopic, $lives, $tries, $score, $combo, $question, $answer, $form, $containerGame, userAnswerObj } from './constants.js';
 import { bonusToast, correctAnswerToast, errorToast } from './toasts.js';
 
 
@@ -83,7 +83,7 @@ function handleCorrectAnswer(questionsSet) {
   score += 10;
   combo += 1;
   tries = 3;
-  correctAnswerToast.fire({ title: '+10 Puntos' });
+  correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
   //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
@@ -93,9 +93,9 @@ function handleCorrectAnswer(questionsSet) {
 }
 
 function handleIncorrectAnswer(questionsSet) {
-  //const userHasNoLivesAndTries = lives === 0 && tries === 1;
-  // const userHasNoTries = tries === 1;
-  //if (userHasNoLivesAndTries) return handleGameOver();
+  const userHasNoLivesAndTries = lives === 0 && tries === 1;
+  //const userHasNoTries = tries === 1;
+  if (userHasNoLivesAndTries) return handleGameOver();
   //if (userHasNoTries) return handleFailedQuestion();
 
   tries--;
@@ -107,11 +107,11 @@ function handleIncorrectAnswer(questionsSet) {
 function handleUserReward(questionsSet) {
   lives++;
   score += 50;
-  bonusToast.fire({ title: `Has conseguido encadenar ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
+  bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
 
   //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
   combo = 0;
-  bonusCondition += 1;
+  bonusCondition++;
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
@@ -119,6 +119,20 @@ function handleUserReward(questionsSet) {
 //function handleFinishGame() {
 //  console.log('FINISH GAME');
 //}
+
+function handleGameOver() {
+  $containerGame.setHTMLUnsafe(`
+    <div class="container-game-finished">
+      <h1>¡Game Over!</h1>
+      <p>Has perdido, a continuación se te muestran tus estadísticas</p>
+      <div class="container-final-stats">
+        <p class="score">Puntos Totales: ${score}</p>
+        <p class="lives">Vidas Restantes: ${lives}</p>
+      </div>
+      <button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>
+    </div>
+  `);
+}
 
 //Game Init
 window.addEventListener('load', () => $form.reset());
