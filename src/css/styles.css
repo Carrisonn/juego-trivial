@@ -54,6 +54,7 @@ body {
   border-radius: 0.5rem;
   font-weight: 700;
   text-transform: uppercase;
+  border: none;
   cursor: pointer;
   background-color: var(--btnColor);
   font-size: var(--fontSize);
@@ -220,7 +221,6 @@ footer {
   }
 
   & .btn-submit {
-    border: none;
     font-size: var(--fontSize);
     box-shadow: var(--shadow);
     color: var(--textColor);
@@ -236,13 +236,66 @@ footer {
 .btn-tutorial {
   width: fit-content;
   margin-top: 5rem;
-  border: none;
   color: var(--textColor);
   box-shadow: var(--shadow);
   transition: transform 0.3s ease;
 }
 
 .btn-tutorial:hover {
+  background-color: var(--btnHoverColor);
+  transform: scale(1.1);
+}
+
+/** Game Finished section **/
+.container-game-finished {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  & h1 {
+    margin: 0;
+  }
+
+  & p {
+    margin: 0;
+  }
+}
+
+.container-final-stats {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+
+  & p {
+    padding: 1rem;
+    font-weight: 700;
+    border-radius: .5rem;
+    box-shadow: var(--shadow);
+  }
+
+  & .score {
+    font-size: var(--fontSize);
+    background-color: var(--userScoreColor);
+    color: var(--userScoreFontColor);
+  }
+
+  & .lives {
+    font-size: var(--fontSize);
+    background-color: var(--userLivesColor);
+    color: var(--userLivesFontColor);
+  }
+}
+
+.btn-back-to-menu {
+  box-shadow: var(--shadow);
+  color: var(--textColor);
+  transition: transform .3s ease;
+}
+
+.btn-back-to-menu:hover {
   background-color: var(--btnHoverColor);
   transform: scale(1.1);
 }
@@ -280,7 +333,6 @@ footer {
       width: 100%;
     }
   }
-
 }
 
 /** Swal **/
