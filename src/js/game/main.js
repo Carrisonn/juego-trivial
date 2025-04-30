@@ -21,7 +21,7 @@ function handleTopicSelected() {
     if (noExitsTopicPosition) return window.location.href = './index.html';
 
     const topicSelectedByUser = topicsSet[topicPosition]; // injecting the postion of the topic set selected in the array of topics
-    const { questionsSet } = topicSelectedByUser
+    const { questionsSet } = topicSelectedByUser;
 
     handleTitleTopic(topicSelectedByUser);
     renderTopicSelected(questionsSet);
@@ -85,8 +85,9 @@ function handleCorrectAnswer(questionsSet) {
   tries = 3;
   correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
+  const lastQuestion = questionPosition + 1 === questionsSet.length;
   if (combo === bonusCondition) return handleUserReward(questionsSet);
-  //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
+  if (lastQuestion) return handleFinishGame();
 
   questionPosition++;
   renderTopicSelected(questionsSet);
@@ -94,13 +95,26 @@ function handleCorrectAnswer(questionsSet) {
 
 function handleIncorrectAnswer(questionsSet) {
   const userHasNoLivesAndTries = lives === 0 && tries === 1;
-  //const userHasNoTries = tries === 1;
+  const userHasNoTries = tries === 1;
   if (userHasNoLivesAndTries) return handleGameOver();
-  //if (userHasNoTries) return handleFailedQuestion();
+  if (userHasNoTries) return handleFailedQuestion(questionsSet);
 
   tries--;
   combo = 0;
   errorToast.fire({ title: 'Respuesta incorrecta' });
+  renderTopicSelected(questionsSet);
+}
+
+function handleFailedQuestion(questionsSet) {
+  lives--;
+  errorToast.fire({ title: '-1 vida' });
+
+  const lastQuestion = questionPosition + 1 === questionsSet.length;
+  if (lastQuestion) return handleFinishGame();
+
+  tries = 3;
+  combo = 0;
+  questionPosition++;
   renderTopicSelected(questionsSet);
 }
 
@@ -109,16 +123,17 @@ function handleUserReward(questionsSet) {
   score += 50;
   bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
 
-  //if (questionPosition + 1 === questionsSet.length) return handleFinishGame();
+  const lastQuestion = questionPosition + 1 === questionsSet.length;
+  if (lastQuestion) return handleFinishGame();
   combo = 0;
   bonusCondition++;
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
 
-//function handleFinishGame() {
-//  console.log('FINISH GAME');
-//}
+function handleFinishGame() {
+  console.log('FINISH GAME');
+}
 
 function handleGameOver() {
   $containerGame.setHTMLUnsafe(`
