@@ -79,6 +79,7 @@ function validateAnswer(event, questionsSet) {
   if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
 }
 
+// modify states, check if the user is un last question 
 function handleCorrectAnswer(questionsSet) {
   score += 10;
   combo += 1;
@@ -86,13 +87,14 @@ function handleCorrectAnswer(questionsSet) {
   correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
-  const lastQuestion = questionPosition + 1 === questionsSet.length;
-  if (lastQuestion) return handleFinishGame();
+  const isLastQuestion = questionPosition + 1 === questionsSet.length;
+  if (isLastQuestion) return handleFinishGame();
 
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
 
+// check if user has tries or lives to keep playing, states are modify if not
 function handleIncorrectAnswer(questionsSet) {
   const userHasNoLivesAndTries = lives === 0 && tries === 1;
   const userHasNoTries = tries === 1;
@@ -105,12 +107,13 @@ function handleIncorrectAnswer(questionsSet) {
   renderTopicSelected(questionsSet);
 }
 
+// modify states, check if the user is in the last question
 function handleFailedQuestion(questionsSet) {
   lives--;
   errorToast.fire({ title: '-1 vida' });
 
-  const lastQuestion = questionPosition + 1 === questionsSet.length;
-  if (lastQuestion) return handleFinishGame();
+  const isLastQuestion = questionPosition + 1 === questionsSet.length;
+  if (isLastQuestion) return handleFinishGame();
 
   tries = 3;
   combo = 0;
@@ -118,19 +121,22 @@ function handleFailedQuestion(questionsSet) {
   renderTopicSelected(questionsSet);
 }
 
+// modify states, check if the user is in the last question
 function handleUserReward(questionsSet) {
   lives++;
   score += 50;
   bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
 
-  const lastQuestion = questionPosition + 1 === questionsSet.length;
-  if (lastQuestion) return handleFinishGame();
+  const isLastQuestion = questionPosition + 1 === questionsSet.length;
+  if (isLastQuestion) return handleFinishGame();
+
   combo = 0;
   bonusCondition++;
   questionPosition++;
   renderTopicSelected(questionsSet);
 }
 
+// create the finish game section
 function handleFinishGame() {
   $containerGame.setHTMLUnsafe(`
     <div class="container-game-finished">
@@ -145,6 +151,7 @@ function handleFinishGame() {
   `);
 }
 
+// create the game over section
 function handleGameOver() {
   $containerGame.setHTMLUnsafe(`
     <div class="container-game-finished">
@@ -160,5 +167,4 @@ function handleGameOver() {
 }
 
 //Game Init
-window.addEventListener('load', () => $form.reset());
 handleTopicSelected();
