@@ -85,8 +85,8 @@ function handleCorrectAnswer(questionsSet) {
   tries = 3;
   correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
-  const lastQuestion = questionPosition + 1 === questionsSet.length;
   if (combo === bonusCondition) return handleUserReward(questionsSet);
+  const lastQuestion = questionPosition + 1 === questionsSet.length;
   if (lastQuestion) return handleFinishGame();
 
   questionPosition++;
@@ -132,7 +132,17 @@ function handleUserReward(questionsSet) {
 }
 
 function handleFinishGame() {
-  console.log('FINISH GAME');
+  $containerGame.setHTMLUnsafe(`
+    <div class="container-game-finished">
+      <h1>¡Has llegado al final!</h1>
+      <p>A continuación se te muestran tus estadísticas</p>
+      <div class="container-final-stats">
+        <p class="score">Puntos Totales: ${score}</p>
+        <p class="lives">Vidas Restantes: ${lives}</p>
+      </div>
+      <button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>
+    </div>
+  `);
 }
 
 function handleGameOver() {
