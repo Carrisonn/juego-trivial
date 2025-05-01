@@ -10,6 +10,8 @@ let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
 let bonusCondition = 5;  // combo === bonus condition => reward
 let questionPosition = 0; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
+let correctAnswerCount = 0;
+let incorrectAnswerCount = 0;
 
 
 // recovering the position of the topic set from the url
@@ -84,6 +86,7 @@ function handleCorrectAnswer(questionsSet) {
   score += 10;
   combo += 1;
   tries = 3;
+  correctAnswerCount++;
   correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
@@ -102,7 +105,6 @@ function handleIncorrectAnswer(questionsSet) {
   if (userHasNoTries) return handleFailedQuestion(questionsSet);
 
   tries--;
-  combo = 0;
   errorToast.fire({ title: 'Respuesta incorrecta' });
   renderTopicSelected(questionsSet);
 }
@@ -110,6 +112,7 @@ function handleIncorrectAnswer(questionsSet) {
 // modify states, check if the user is in the last question
 function handleFailedQuestion(questionsSet) {
   lives--;
+  incorrectAnswerCount++;
   errorToast.fire({ title: '-1 vida' });
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
@@ -140,11 +143,13 @@ function handleUserReward(questionsSet) {
 function handleFinishGame() {
   $containerGame.setHTMLUnsafe(`
     <div class="container-game-finished">
-      <h1>¡Has llegado al final!</h1>
-      <p>A continuación se te muestran tus estadísticas</p>
+      <h1>¡Felicidades!</h1>
+      <p>Has llegado al final, a continuación se te muestran tus estadísticas</p>
       <div class="container-final-stats">
         <p class="score">Puntos Totales: ${score}</p>
         <p class="lives">Vidas Restantes: ${lives}</p>
+        <p class="correct-answer-count">Preguntas Correctas: ${correctAnswerCount} </p>
+        <p class="incorrect-answer-count">Preguntas Incorrectas: ${incorrectAnswerCount} </p>
       </div>
       <button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>
     </div>
@@ -160,6 +165,8 @@ function handleGameOver() {
       <div class="container-final-stats">
         <p class="score">Puntos Totales: ${score}</p>
         <p class="lives">Vidas Restantes: ${lives}</p>
+        <p class="correct-answer-count">Preguntas Correctas: ${correctAnswerCount} </p>
+        <p class="incorrect-answer-count">Preguntas Incorrectas: ${incorrectAnswerCount} </p>
       </div>
       <button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>
     </div>
