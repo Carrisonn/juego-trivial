@@ -333,6 +333,11 @@ footer {
       width: 100%;
     }
   }
+
+  /** game over section **/
+  .container-final-stats {
+    flex-direction: column;
+  }
 }
 
 /** Swal **/
