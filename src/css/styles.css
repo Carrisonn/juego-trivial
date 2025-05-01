@@ -264,9 +264,9 @@ footer {
 }
 
 .container-final-stats {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 
   & p {
@@ -274,18 +274,27 @@ footer {
     font-weight: 700;
     border-radius: .5rem;
     box-shadow: var(--shadow);
+    font-size: var(--fontSize);
   }
 
   & .score {
-    font-size: var(--fontSize);
     background-color: var(--userScoreColor);
     color: var(--userScoreFontColor);
   }
 
   & .lives {
-    font-size: var(--fontSize);
     background-color: var(--userLivesColor);
     color: var(--userLivesFontColor);
+  }
+
+  & .correct-answer-count {
+    background-color: #365de0;
+    color: #061442;
+  }
+
+  & .incorrect-answer-count {
+    background-color: #e73131;
+    color: #440808;
   }
 }
 
@@ -334,8 +343,9 @@ footer {
     }
   }
 
-  /** game over section **/
+  /** game over/finished section **/
   .container-final-stats {
+    display: flex;
     flex-direction: column;
   }
 }
