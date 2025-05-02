@@ -42,6 +42,7 @@ body {
   color: var(--textColor);
   display: grid;
   grid-template-rows: 1fr auto;
+  text-align: center;
 }
 
 .container {
@@ -60,6 +61,20 @@ body {
   font-size: var(--fontSize);
 }
 
+h1 {
+  font-size: 4rem;
+  text-decoration: underline;
+}
+
+h2 {
+  margin: 0;
+}
+
+p {
+  font-size: var(--fontSize);
+  margin: 0;
+}
+
 img {
   width: 100%;
 }
@@ -68,16 +83,31 @@ a {
   all: unset;
 }
 
-/** Main **/
-h1 {
-  font-size: 4rem;
-  text-decoration: underline;
-  text-align: center;
+ul {
+  text-align: left;
+  margin: 0;
+  font-size: var(--fontSize);
 }
 
-p {
-  font-size: var(--fontSize);
-  text-align: center;
+/** Main **/
+.info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+
+  & .btn-tutorial {
+    width: fit-content;
+    color: var(--textColor);
+    transition: transform 0.3s ease;
+  }
+
+  & .btn-tutorial:hover {
+    background-color: var(--btnHoverColor);
+    transform: scale(1.1);
+  }
 }
 
 .topics-container {
@@ -233,19 +263,6 @@ footer {
   }
 }
 
-.btn-tutorial {
-  width: fit-content;
-  margin-top: 5rem;
-  color: var(--textColor);
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
-}
-
-.btn-tutorial:hover {
-  background-color: var(--btnHoverColor);
-  transform: scale(1.1);
-}
-
 /** Game Finished section **/
 .container-game-finished {
   width: 100%;
@@ -309,6 +326,60 @@ footer {
   transform: scale(1.1);
 }
 
+/** Tutorial Section **/
+.container-tutorial {
+  width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card-tutorial {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--cardColor);
+  padding: 2rem;
+  border: 1px solid var(--borderColor);
+  border-radius: 0.5rem;
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  & li {
+    padding-left: 1rem;
+  }
+
+  & li::marker {
+    content: '->';
+  }
+
+  & span {
+    font-weight: 700;
+  }
+}
+
+.tutorial-lives {
+  color: var(--userLivesColor);
+}
+
+.tutorial-tries {
+  color: var(--userTriesColor);
+}
+
+.tutorial-combo {
+  color: var(--userComboColor);
+}
+
+.tutorial-score {
+  color: var(--userScoreColor);
+}
+
+/** Mobile **/
 @media screen and (max-width: 768px) {
 
   /* index.html */
@@ -347,6 +418,15 @@ footer {
   .container-final-stats {
     display: flex;
     flex-direction: column;
+  }
+
+  /** tutorial.html **/
+  .container-tutorial {
+    width: 100%;
+  }
+
+  ul {
+    padding-left: 2rem;
   }
 }
 
