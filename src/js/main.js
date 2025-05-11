@@ -18,7 +18,7 @@ function createTopicCards() {
     const $topicLink = document.createElement('a');
     $topicLink.classList.add('btn', 'btn-topic');
     $topicLink.textContent = topic;
-    $topicLink.href = `../game.html?id=${index}`;
+    $topicLink.href = `./game.html?id=${index}`;
 
     $topicCard.appendChild($topicImg);
     $topicCard.appendChild($topicLink);
