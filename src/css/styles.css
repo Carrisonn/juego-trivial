@@ -51,6 +51,7 @@ body {
 }
 
 .btn {
+  width: fit-content;
   padding: 1rem;
   border-radius: 0.5rem;
   font-weight: 700;
@@ -59,6 +60,17 @@ body {
   cursor: pointer;
   background-color: var(--btnColor);
   font-size: var(--fontSize);
+}
+
+.btn-back-to-menu {
+  box-shadow: var(--shadow);
+  color: var(--textColor);
+  transition: transform .3s ease;
+}
+
+.btn-back-to-menu:hover {
+  background-color: var(--btnHoverColor);
+  transform: scale(1.1);
 }
 
 h1 {
@@ -305,8 +317,8 @@ footer {
   }
 
   & .correct-answer-count {
-    background-color: #365de0;
-    color: #061442;
+    background-color: #e08236;
+    color: #61340e;
   }
 
   & .incorrect-answer-count {
@@ -315,24 +327,14 @@ footer {
   }
 }
 
-.btn-back-to-menu {
-  box-shadow: var(--shadow);
-  color: var(--textColor);
-  transition: transform .3s ease;
-}
-
-.btn-back-to-menu:hover {
-  background-color: var(--btnHoverColor);
-  transform: scale(1.1);
-}
-
 /** Tutorial Section **/
 .container-tutorial {
-  width: 80%;
+  width: 70%;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
 }
 
 .card-tutorial {
