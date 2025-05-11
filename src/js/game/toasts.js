@@ -1,5 +1,3 @@
-import Swal from 'sweetalert2'
-
 export const bonusToast = Swal.mixin({
   toast: true,
   position: "top",
