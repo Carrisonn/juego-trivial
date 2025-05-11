@@ -19,8 +19,8 @@ function handleTopicSelected() {
   try {
     const params = new URLSearchParams(window.location.search);
     const topicPosition = params.get('id'); // 0, 1, 2, 3...
-    const noExitsTopicPosition = topicPosition === undefined || topicPosition === null || topicPosition === '';
-    if (noExitsTopicPosition) return window.location.href = './index.html';
+    const noExistTopicPosition = topicPosition === undefined || topicPosition === null || topicPosition === '';
+    if (noExistTopicPosition) return window.location.href = './index.html';
 
     const topicSelectedByUser = topicsSet[topicPosition]; // injecting the postion of the topic set selected in the array of topics
     const { questionsSet } = topicSelectedByUser;
@@ -81,7 +81,7 @@ function validateAnswer(event, questionsSet) {
   if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
 }
 
-// modify states, check if the user is un last question 
+// modify states, check if the user is in last question 
 function handleCorrectAnswer(questionsSet) {
   score += 10;
   combo += 1;
