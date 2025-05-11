@@ -151,7 +151,7 @@ function handleFinishGame() {
         <p class="correct-answer-count">Preguntas Correctas: ${correctAnswerCount} </p>
         <p class="incorrect-answer-count">Preguntas Incorrectas: ${incorrectAnswerCount} </p>
       </div>
-      <!--<button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>-->
+      <a href="./index.html" class="btn btn-back-to-menu">Volver al menú</a>
     </div>
   `);
 }
@@ -168,7 +168,7 @@ function handleGameOver() {
         <p class="correct-answer-count">Preguntas Correctas: ${correctAnswerCount} </p>
         <p class="incorrect-answer-count">Preguntas Incorrectas: ${incorrectAnswerCount} </p>
       </div>
-      <!--<button class="btn btn-back-to-menu" onclick="window.location.href = './index.html'">Volver al menú</button>-->
+      <a href="./index.html" class="btn btn-back-to-menu">Volver al menú</a>
     </div>
   `);
 }
