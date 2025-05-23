@@ -11,5 +11,8 @@
   "devDependencies": {
     "standard": "^17.1.2",
     "vite": "^6.3.1"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.21.2"
   }
 }
