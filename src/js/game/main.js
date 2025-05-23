@@ -4,7 +4,7 @@ import { bonusToast, correctAnswerToast, errorToast } from './toasts.js';
 
 
 // States
-let lives = 3;
+let lives = 5;
 let tries = 3;
 let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
@@ -84,12 +84,13 @@ function validateAnswer(event, questionsSet) {
 // modify states, check if the user is in last question 
 function handleCorrectAnswer(questionsSet) {
   score += 10;
-  combo += 1;
   tries = 3;
+  combo++;
   correctAnswerCount++;
   correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
+
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
   if (isLastQuestion) return handleFinishGame();
 
@@ -105,7 +106,7 @@ function handleIncorrectAnswer(questionsSet) {
   if (userHasNoTries) return handleFailedQuestion(questionsSet);
 
   tries--;
-  errorToast.fire({ title: 'Respuesta incorrecta' });
+  errorToast.fire({ title: 'Respuesta incorrecta, -1 intento' });
   renderTopicSelected(questionsSet);
 }
 
@@ -113,7 +114,7 @@ function handleIncorrectAnswer(questionsSet) {
 function handleFailedQuestion(questionsSet) {
   lives--;
   incorrectAnswerCount++;
-  errorToast.fire({ title: '-1 vida' });
+  errorToast.fire({ title: 'Has fallado la pregunta, -1 vida' });
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
   if (isLastQuestion) return handleFinishGame();
