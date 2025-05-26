@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html">
-  <link rel="icon" type="image/png" href="./src/images/web-icon.png">
+  <link rel="icon" href="./src/images/web-icon.svg" type="image/svg+xml">
   <title>Preguntas sobre</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="preload" href="./src/css/styles.css" as="style">
   <link rel="stylesheet" href="./src/css/styles.css">
   <script type="module" src="./src/js/game/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -28,15 +28,20 @@
           <p class="combo">Combo: <span id="combo"></span></p>
           <p class="score">Puntos: <span id="score"></span></p>
         </div>
-      </div><!-- user-stats-container -->
+      </div><!-- .container-user-stats -->
 
       <p id="question"></p>
+
       <form id="form" autocomplete="off">
-        <input type="text" id="answer" spellcheck="true" autocomplete="off" placeholder="Tu respuesta aquí...">
+        <input type="text" id="answer" spellcheck="true" autocomplete="off" placeholder="Creo que es...">
         <button class="btn btn-submit" type="submit">Comprobar</button>
       </form>
-      <a href="./index.html" class="btn btn-back-to-menu">Volver al menú</a>
-    </div><!-- container-game -->
+
+      <div class="container-game-controls">
+        <button class="btn btn-skip-question" type="button">Saltar Pregunta</button>
+        <button id="btn-back-to-menu" class="btn btn-back-to-menu" type="button">Volver al menú</button>
+      </div>
+    </div><!-- .container-game -->
   </main>
 
   <footer>
