@@ -29,3 +29,19 @@ export const errorToast = Swal.mixin({
   padding: '0.5rem',
   color: '#fff'
 });
+
+export const skipModal = Swal.mixin({
+  titleText: "¿Estás seguro que quieres saltarte la pregunta?",
+  text: "Esta acción no se puede deshacer",
+  icon: "warning",
+  confirmButtonColor: "#49a1e9",
+  cancelButtonColor: "#e92f2f",
+  confirmButtonText: "Sí, saltar pregunta",
+  cancelButtonText: "Cancelar",
+  color: '#000',
+  showConfirmButton: true,
+  showCancelButton: true,
+  allowOutsideClick: false,
+  allowEscapeKey: false,
+  heightAuto: false,
+});
