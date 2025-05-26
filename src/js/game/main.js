@@ -1,17 +1,31 @@
 import { topicsSet } from './topicSets.js';
-import { $titleTopic, $lives, $tries, $score, $combo, $question, $answer, $form, $containerGame, userAnswerObj } from './constants.js';
-import { bonusToast, correctAnswerToast, errorToast } from './toasts.js';
+import { bonusToast, correctAnswerToast, errorToast, skipModal, backToMenuModal } from './mixins.js';
+import {
+  $titleTopic,
+  $lives,
+  $tries,
+  $score,
+  $combo,
+  $question,
+  $answer,
+  $form,
+  $containerGame,
+  $btnSkipQuestion,
+  $btnBackToMenu,
+  userAnswerObj
+} from './constants.js';
 
 
 // States
-let lives = 5;
+let lives = 0;
 let tries = 3;
 let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
 let bonusCondition = 5;  // combo === bonus condition => reward
-let questionPosition = 0; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
+let questionPosition = 29; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
 let correctAnswerCount = 0;
 let incorrectAnswerCount = 0;
+let skippedQuestionsCount = 0;
 
 
 // recovering the position of the topic set from the url
@@ -59,6 +73,8 @@ function renderTopicSelected(questionsSet) {
 function handleEventListeners(questionsSet) {
   $answer.addEventListener('input', handleUserAnswer)
   $form.addEventListener('submit', event => validateAnswer(event, questionsSet));
+  $btnSkipQuestion.addEventListener('click', () => handleSkipQuestion(questionsSet));
+  $btnBackToMenu.addEventListener('click', () => backToMenuModal.fire().then(result => { if (result.isConfirmed) window.location.href = './index.html' }));
 }
 
 // pass the user answer to an object
@@ -79,6 +95,30 @@ function validateAnswer(event, questionsSet) {
   if (emptyValue) return errorToast.fire({ title: 'Debes introducir una respuesta' });
   if (isCorrectAnswer) return handleCorrectAnswer(questionsSet);
   if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
+}
+
+// check if the user can skip the question, show a modal to confirm the action, then modify the states
+function handleSkipQuestion(questionsSet) {
+  if (skippedQuestionsCount === 3) return errorToast.fire({ title: 'No puedes saltarte más preguntas' });
+
+  skipModal.fire().then(result => {
+    if (result.isConfirmed) {
+      incorrectAnswerCount++;
+
+      const isLastQuestion = questionPosition + 1 === questionsSet.length;
+      if (isLastQuestion) return handleFinishGame();
+
+      if (lives === 0) return handleGameOver();
+
+      lives--;
+      combo = 0;
+      tries = 3;
+      skippedQuestionsCount++;
+      questionPosition++;
+      errorToast.fire({ title: 'Has saltado la pregunta, -1 vida' });
+      renderTopicSelected(questionsSet);
+    }
+  });
 }
 
 // modify states, check if the user is in last question 
