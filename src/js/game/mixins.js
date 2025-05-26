@@ -39,9 +39,27 @@ export const skipModal = Swal.mixin({
   confirmButtonText: "Sí, saltar pregunta",
   cancelButtonText: "Cancelar",
   color: '#000',
+  background: '#d4d1d1',
   showConfirmButton: true,
   showCancelButton: true,
   allowOutsideClick: false,
   allowEscapeKey: false,
   heightAuto: false,
 });
+
+export const backToMenuModal = Swal.mixin({
+  titleText: "¿Estás seguro de volver al menú?",
+  text: "Perderás todo el progreso",
+  icon: "warning",
+  confirmButtonColor: "#49a1e9",
+  cancelButtonColor: "#e92f2f",
+  confirmButtonText: "Sí, volver al menú",
+  cancelButtonText: "Cancelar",
+  color: '#000',
+  background: '#d4d1d1',
+  showConfirmButton: true,
+  showCancelButton: true,
+  allowOutsideClick: false,
+  allowEscapeKey: false,
+  heightAuto: false,
+})
