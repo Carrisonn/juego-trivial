@@ -17,12 +17,12 @@ import {
 
 
 // States
-let lives = 0;
+let lives = 5;
 let tries = 3;
 let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
 let bonusCondition = 5;  // combo === bonus condition => reward
-let questionPosition = 29; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
+let questionPosition = 0; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
 let correctAnswerCount = 0;
 let incorrectAnswerCount = 0;
 let skippedQuestionsCount = 0;
@@ -97,7 +97,7 @@ function validateAnswer(event, questionsSet) {
   if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet);
 }
 
-// check if the user can skip the question, show a modal to confirm the action, then modify the states
+// check if the user can skip the question, check if the user is in the last question or has lives, then modify the states
 function handleSkipQuestion(questionsSet) {
   if (skippedQuestionsCount === 3) return errorToast.fire({ title: 'No puedes saltarte más preguntas' });
 
