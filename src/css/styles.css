@@ -1,5 +1,7 @@
 /** Global styles */
 :root {
+  --btnDangerColor: #e92f2f;
+  --btnDangerHoverColor: #c91b1b;
   --bodyColor: #181717;
   --cardColor: #222121;
   --textColor: #ffffff;
@@ -63,13 +65,14 @@ body {
 }
 
 .btn-back-to-menu {
+  background-color: var(--btnDangerColor);
   box-shadow: var(--shadow);
   color: var(--textColor);
   transition: transform .3s ease;
 }
 
 .btn-back-to-menu:hover {
-  background-color: var(--btnHoverColor);
+  background-color: var(--btnDangerHoverColor);
   transform: scale(1.1);
 }
 
@@ -275,6 +278,26 @@ footer {
   }
 }
 
+.container-game-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+
+  & .btn-skip-question {
+    box-shadow: var(--shadow);
+    background-color: var(--btnDangerColor);
+    color: var(--textColor);
+    transition: transform 0.3s ease;
+  }
+
+  & .btn-skip-question:hover {
+    background-color: var(--btnDangerHoverColor);
+    transform: scale(1.1);
+  }
+}
+
 /** Game Finished section **/
 .container-game-finished {
   width: 100%;
@@ -416,6 +439,19 @@ footer {
     }
   }
 
+  .container-game-controls {
+    width: 100%;
+    flex-direction: column;
+
+    & .btn-skip-question {
+      width: 100%;
+    }
+
+    & .btn-back-to-menu {
+      width: 100%;
+    }
+  }
+
   /** game over/finished section **/
   .container-final-stats {
     display: flex;
@@ -435,4 +471,8 @@ footer {
 /** Swal **/
 .swal2-popup {
   font-size: 20px;
+
+  & h2 {
+    padding: 0;
+  }
 }
