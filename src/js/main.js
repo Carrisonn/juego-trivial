@@ -20,9 +20,9 @@ function createTopicCards() {
     $topicLink.textContent = topic;
     $topicLink.href = `./game.html?id=${index}`;
 
-    $topicCard.appendChild($topicImg);
-    $topicCard.appendChild($topicLink);
-    $topicContainer.appendChild($topicCard);
+    $topicCard.append($topicImg);
+    $topicCard.append($topicLink);
+    $topicContainer.append($topicCard);
   });
 }
 
