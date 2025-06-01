@@ -22,7 +22,7 @@ let tries = 3;
 let score = 0;
 let combo = 0; // increases when the user guesses the answers in a row
 let bonusCondition = 5;  // combo === bonus condition => reward
-let questionPosition = 0; // topic object => questionsSet is array of objects => 0 is first object(contains question and answer)
+let questionPosition = 0; // 0 is the first topic set in topicsSet => questionsSet(array of objects) => 0 is first object(contains question and answer)
 let correctAnswerCount = 0;
 let incorrectAnswerCount = 0;
 let skippedQuestionsCount = 0;
@@ -86,7 +86,7 @@ function handleUserAnswer(event) {
 function validateAnswer(event, questionsSet) {
   event.preventDefault();
 
-  const correctAnswer = questionsSet[questionPosition].answer.toLowerCase().trim();
+  const correctAnswer = questionsSet[questionPosition].answer.toLowerCase();
   const { userAnswer } = userAnswerObj
   const emptyValue = userAnswer === '';
   const isCorrectAnswer = userAnswer === correctAnswer;
@@ -99,7 +99,8 @@ function validateAnswer(event, questionsSet) {
 
 // check if the user can skip the question, check if the user is in the last question or has lives, then modify the states
 function handleSkipQuestion(questionsSet) {
-  if (skippedQuestionsCount === 3) return errorToast.fire({ title: 'No puedes saltarte más preguntas' });
+  const limitSkip = 3;
+  if (skippedQuestionsCount === limitSkip) return errorToast.fire({ title: 'No puedes saltarte más preguntas' });
 
   skipModal.fire().then(result => {
     if (result.isConfirmed) {
@@ -115,7 +116,7 @@ function handleSkipQuestion(questionsSet) {
       tries = 3;
       skippedQuestionsCount++;
       questionPosition++;
-      errorToast.fire({ title: 'Has saltado la pregunta, -1 vida' });
+      errorToast.fire({ title: 'Has saltado la pregunta: -1 vida' });
       renderTopicSelected(questionsSet);
     }
   });
@@ -127,9 +128,9 @@ function handleCorrectAnswer(questionsSet) {
   tries = 3;
   combo++;
   correctAnswerCount++;
-  correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   if (combo === bonusCondition) return handleUserReward(questionsSet);
+  correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' });
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
   if (isLastQuestion) return handleFinishGame();
@@ -146,15 +147,17 @@ function handleIncorrectAnswer(questionsSet) {
   if (userHasNoTries) return handleFailedQuestion(questionsSet);
 
   tries--;
-  errorToast.fire({ title: 'Respuesta incorrecta, -1 intento' });
+  errorToast.fire({ title: 'Respuesta incorrecta: -1 intento' });
   renderTopicSelected(questionsSet);
 }
 
-// modify states, check if the user is in the last question
+// modify states, show answer, check if the user is in the last question
 function handleFailedQuestion(questionsSet) {
   lives--;
   incorrectAnswerCount++;
-  errorToast.fire({ title: 'Has fallado la pregunta, -1 vida' });
+
+  const correctAnswer = questionsSet[questionPosition].answer;
+  errorToast.fire({ title: `Pregunta Fallida: -1 vida \n Respuesta: ${correctAnswer}` });
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
   if (isLastQuestion) return handleFinishGame();
@@ -169,7 +172,7 @@ function handleFailedQuestion(questionsSet) {
 function handleUserReward(questionsSet) {
   lives++;
   score += 50;
-  bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas, recibes 1 vida y 50 puntos` });
+  bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas \n Recibes 1 vida y 50 puntos` });
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length;
   if (isLastQuestion) return handleFinishGame();
