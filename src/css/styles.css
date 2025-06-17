@@ -476,6 +476,7 @@ footer {
   }
 
   & h2 {
+    text-wrap: balance;
     padding: 1rem;
   }
 
