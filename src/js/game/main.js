@@ -86,7 +86,7 @@ function validateAnswer(event, questionsSet) {
 
   const { userAnswer } = userAnswerObj
   const emptyValue = userAnswer === ''
-  const isCorrectAnswer = questionsSet[questionPosition].answer
+  const isCorrectAnswer = questionsSet[questionPosition].answer.some(value => value.toLowerCase() === userAnswer)
   const isIncorrectAnswer = userAnswer !== isCorrectAnswer
 
   if (emptyValue) return errorToast.fire({ title: 'Debes introducir una respuesta' })
@@ -102,13 +102,13 @@ function handleSkipQuestion(questionsSet) {
   skipModal.fire().then(result => {
     if (result.isConfirmed) {
       incorrectAnswerCount++
+      lives--
 
       const isLastQuestion = questionPosition + 1 === questionsSet.length
       if (isLastQuestion) return handleFinishGame()
 
       if (lives === 0) return handleGameOver()
 
-      lives--
       combo = 0
       tries = 3
       skippedQuestionsCount++
