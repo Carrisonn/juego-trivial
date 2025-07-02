@@ -72,7 +72,7 @@ function handleEventListeners(questionsSet) {
   $answer.addEventListener('input', handleUserAnswer)
   $form.addEventListener('submit', event => validateAnswer(event, questionsSet))
   $btnSkipQuestion.addEventListener('click', () => handleSkipQuestion(questionsSet))
-  $btnBackToMenu.addEventListener('click', () => backToMenuModal.fire().then(result => { if (result.isConfirmed) window.location.href = './index.html' }))
+  $btnBackToMenu.addEventListener('click', handleBackToMenu)
 }
 
 // pass the user answer to an object
@@ -84,9 +84,10 @@ function handleUserAnswer(event) {
 function validateAnswer(event, questionsSet) {
   event.preventDefault()
 
+  const answer = questionsSet[questionPosition].answer
   const { userAnswer } = userAnswerObj
   const emptyValue = userAnswer === ''
-  const isCorrectAnswer = questionsSet[questionPosition].answer.some(value => value.toLowerCase() === userAnswer)
+  const isCorrectAnswer = answer.find(answer => answer.toLowerCase() === userAnswer)
   const isIncorrectAnswer = userAnswer !== isCorrectAnswer
 
   if (emptyValue) return errorToast.fire({ title: 'Debes introducir una respuesta' })
@@ -117,6 +118,10 @@ function handleSkipQuestion(questionsSet) {
       renderTopicSelected(questionsSet)
     }
   })
+}
+
+function handleBackToMenu() {
+  backToMenuModal.fire().then(result => { if (result.isConfirmed) window.location.href = './index.html' })
 }
 
 // modify states, check if the user is in last question
