@@ -13,7 +13,7 @@ export const correctAnswerToast = Swal.mixin({
   toast: true,
   position: 'top',
   showConfirmButton: false,
-  timer: 5000,
+  timer: 6000,
   theme: 'dark',
   background: '#5bbd63',
   padding: '0.5rem',
@@ -24,7 +24,7 @@ export const errorToast = Swal.mixin({
   toast: true,
   position: 'top',
   showConfirmButton: false,
-  timer: 5000,
+  timer: 6000,
   background: '#da3a3a',
   padding: '0.5rem',
   color: '#fff'
