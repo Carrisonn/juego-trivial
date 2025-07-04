@@ -1,5 +1,5 @@
 import { topicsSet } from './topicSets.js'
-import { bonusToast, correctAnswerToast, errorToast, skipModal, backToMenuModal } from './mixins.js'
+import { toast, modal } from './mixins.js'
 import {
   $titleTopic,
   $lives,
@@ -10,6 +10,7 @@ import {
   $answer,
   $form,
   $containerGame,
+  $btnGetLives,
   $btnSkipQuestion,
   $btnBackToMenu,
   userAnswerObj
@@ -38,11 +39,11 @@ function handleTopicSelected() {
     const { questionsSet } = topicSelectedByUser
 
     handleTitleTopic(topicSelectedByUser)
-    renderTopicSelected(questionsSet)
+    renderUI(questionsSet)
     handleEventListeners(questionsSet)
   } catch (error) {
     console.error(error)
-    alert(`Ha habido un error: ${error}`)
+    alert(`Ha habido un error: \n ${error}`)
     window.location.href = './index.html'
   }
 }
@@ -55,7 +56,7 @@ function handleTitleTopic(topicSet) {
 }
 
 // render the states and the question in the UI, reset the object to prevent the user from submitting the same response multiple times
-function renderTopicSelected(questionsSet) {
+function renderUI(questionsSet) {
   const question = questionsSet[questionPosition].question
 
   $lives.textContent = lives
@@ -71,6 +72,7 @@ function renderTopicSelected(questionsSet) {
 function handleEventListeners(questionsSet) {
   $answer.addEventListener('input', handleUserAnswer)
   $form.addEventListener('submit', event => validateAnswer(event, questionsSet))
+  $btnGetLives.addEventListener('click', () => handleGetLives(questionsSet))
   $btnSkipQuestion.addEventListener('click', () => handleSkipQuestion(questionsSet))
   $btnBackToMenu.addEventListener('click', handleBackToMenu)
 }
@@ -90,17 +92,39 @@ function validateAnswer(event, questionsSet) {
   const isCorrectAnswer = answer.find(answer => answer.toLowerCase() === userAnswer)
   const isIncorrectAnswer = userAnswer !== isCorrectAnswer
 
-  if (emptyValue) return errorToast.fire({ title: 'Debes introducir una respuesta' })
+  if (emptyValue) return toast.fire({ title: 'Debes introducir una respuesta', background: '#da3a3a' })
   if (isCorrectAnswer) return handleCorrectAnswer(questionsSet)
   if (isIncorrectAnswer) return handleIncorrectAnswer(questionsSet)
 }
 
-// check if the user can skip the question, check if the user is in the last question or has lives, then modify the states
+function handleGetLives(questionsSet) {
+  const userHasNoScoreAvailable = score < 100
+  if (userHasNoScoreAvailable) return toast.fire({ title: 'No tienes puntos suficientes', background: '#da3a3a' })
+
+  modal.fire({
+    titleText: '¿Quieres cambiar 100 puntos por 1 vida?',
+    text: 'Esta acción no se puede deshacer',
+    confirmButtonText: 'Sí, cambiar',
+  }).then(result => {
+    if (result.isConfirmed) {
+      score -= 100
+      lives++
+      renderUI(questionsSet)
+    }
+  })
+}
+
+// check if the user can skip the question, check if the user is in the last question, then modify the states
 function handleSkipQuestion(questionsSet) {
   const limitSkip = 3
-  if (skippedQuestionsCount === limitSkip) return errorToast.fire({ title: 'No puedes saltarte más preguntas' })
+  const isQuestionNotSkippable = skippedQuestionsCount === limitSkip || lives === 0
+  if (isQuestionNotSkippable) return toast.fire({ title: 'No puedes saltarte más preguntas', background: '#da3a3a', })
 
-  skipModal.fire().then(result => {
+  modal.fire({
+    titleText: '¿Estás seguro que quieres saltarte la pregunta?',
+    text: 'Esta acción no se puede deshacer',
+    confirmButtonText: 'Sí, saltar pregunta',
+  }).then(result => {
     if (result.isConfirmed) {
       incorrectAnswerCount++
       lives--
@@ -108,20 +132,24 @@ function handleSkipQuestion(questionsSet) {
       const isLastQuestion = questionPosition + 1 === questionsSet.length
       if (isLastQuestion) return handleFinishGame()
 
-      if (lives === 0) return handleGameOver()
-
       combo = 0
       tries = 3
       skippedQuestionsCount++
       questionPosition++
-      errorToast.fire({ title: 'Has saltado la pregunta: -1 vida' })
-      renderTopicSelected(questionsSet)
+      toast.fire({ title: 'Has saltado la pregunta: -1 vida', background: '#da3a3a' })
+      renderUI(questionsSet)
     }
   })
 }
 
 function handleBackToMenu() {
-  backToMenuModal.fire().then(result => { if (result.isConfirmed) window.location.href = './index.html' })
+  modal.fire({
+    titleText: '¿Estás seguro de volver al menú?',
+    text: 'Perderás todo el progreso',
+    confirmButtonText: 'Sí, volver al menú',
+  }).then(result => {
+    if (result.isConfirmed) window.location.href = './index.html'
+  })
 }
 
 // modify states, check if the user is in last question
@@ -132,13 +160,13 @@ function handleCorrectAnswer(questionsSet) {
   correctAnswerCount++
 
   if (combo === bonusCondition) return handleUserReward(questionsSet)
-  correctAnswerToast.fire({ title: '+10 Puntos & +1 Combo' })
+  toast.fire({ title: '+10 Puntos & +1 Combo', background: '#5bbd63' })
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length
   if (isLastQuestion) return handleFinishGame()
 
   questionPosition++
-  renderTopicSelected(questionsSet)
+  renderUI(questionsSet)
 }
 
 // check if user has tries or lives to keep playing, states are modify if not
@@ -149,8 +177,8 @@ function handleIncorrectAnswer(questionsSet) {
   if (userHasNoTries) return handleFailedQuestion(questionsSet)
 
   tries--
-  errorToast.fire({ title: 'Respuesta incorrecta: -1 intento' })
-  renderTopicSelected(questionsSet)
+  toast.fire({ title: 'Respuesta incorrecta: -1 intento', background: '#da3a3a' })
+  renderUI(questionsSet)
 }
 
 // modify states, show answer, check if the user is in the last question
@@ -159,7 +187,7 @@ function handleFailedQuestion(questionsSet) {
   incorrectAnswerCount++
 
   const correctAnswer = questionsSet[questionPosition].answer[0]
-  errorToast.fire({ title: `Pregunta Fallida: -1 vida \n Respuesta: ${correctAnswer}` })
+  toast.fire({ title: `Pregunta Fallida: -1 vida \n Respuesta: ${correctAnswer}`, background: '#da3a3a' })
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length
   if (isLastQuestion) return handleFinishGame()
@@ -167,14 +195,14 @@ function handleFailedQuestion(questionsSet) {
   tries = 3
   combo = 0
   questionPosition++
-  renderTopicSelected(questionsSet)
+  renderUI(questionsSet)
 }
 
 // modify states, check if the user is in the last question
 function handleUserReward(questionsSet) {
   lives++
   score += 50
-  bonusToast.fire({ title: `Has encadenado ${combo} respuestas seguidas \n Recibes 1 vida y 50 puntos` })
+  toast.fire({ title: `Has encadenado ${combo} respuestas seguidas \n Recibes 1 vida y 50 puntos`, background: '#582c8a', })
 
   const isLastQuestion = questionPosition + 1 === questionsSet.length
   if (isLastQuestion) return handleFinishGame()
@@ -182,7 +210,7 @@ function handleUserReward(questionsSet) {
   combo = 0
   bonusCondition++
   questionPosition++
-  renderTopicSelected(questionsSet)
+  renderUI(questionsSet)
 }
 
 // create the finish game section
