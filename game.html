@@ -5,12 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html">
-  <link rel="icon" href="./src/images/web-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/src/images/web-icon.svg" type="image/svg+xml">
   <title>Preguntas sobre</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
-  <link rel="preload" href="./src/css/styles.css" as="style">
-  <link rel="stylesheet" href="./src/css/styles.css">
-  <script type="module" src="./src/js/game/main.js"></script>
+  <link rel="preload" href="/src/css/styles.css" as="style">
+  <link rel="stylesheet" href="/src/css/styles.css">
+  <link rel="preload" href="/src/css/mobile-styles.css">
+  <link rel="stylesheet" href="/src/css/mobile-styles.css" media="only screen and (width < 768px)">
+  <script type="module" src="/src/js/game/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -38,8 +40,9 @@
       </form>
 
       <div class="container-game-controls">
+        <button class="btn btn-get-lives" type="button">Conseguir Vida</button>
         <button class="btn btn-skip-question" type="button">Saltar Pregunta</button>
-        <button id="btn-back-to-menu" class="btn btn-back-to-menu" type="button">Volver al menú</button>
+        <button class="btn btn-back-to-menu" type="button">Volver al menú</button>
       </div>
     </div><!-- .container-game -->
   </main>
