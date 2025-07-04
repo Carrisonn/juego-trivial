@@ -1,6 +1,6 @@
 import { topicsSet } from './game/topicSets.js'
 
-function createTopicCards () {
+(function createTopicCards() {
   const $topicContainer = document.querySelector('.topics-container')
 
   topicsSet.forEach((topicObj, index) => {
@@ -24,6 +24,4 @@ function createTopicCards () {
     $topicCard.append($topicLink)
     $topicContainer.append($topicCard)
   })
-}
-
-createTopicCards()
+})()
