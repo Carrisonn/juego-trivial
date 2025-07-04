@@ -62,18 +62,21 @@ body {
   cursor: pointer;
   background-color: var(--btnColor);
   font-size: var(--fontSize);
+  box-shadow: var(--shadow);
+  color: var(--textColor);
+  transition: transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.1);
 }
 
 .btn-back-to-menu {
   background-color: var(--btnDangerColor);
-  box-shadow: var(--shadow);
-  color: var(--textColor);
-  transition: transform .3s ease;
 }
 
 .btn-back-to-menu:hover {
   background-color: var(--btnDangerHoverColor);
-  transform: scale(1.1);
 }
 
 h1 {
@@ -284,15 +287,15 @@ footer {
   margin-top: 2rem;
 
   & .btn-skip-question {
-    box-shadow: var(--shadow);
     background-color: var(--btnDangerColor);
-    color: var(--textColor);
-    transition: transform 0.3s ease;
   }
 
   & .btn-skip-question:hover {
     background-color: var(--btnDangerHoverColor);
-    transform: scale(1.1);
+  }
+
+  & .btn-get-lives {
+    background-color: var(--userLivesColor);
   }
 }
 
@@ -401,70 +404,6 @@ footer {
 
 .tutorial-score {
   color: var(--userScoreColor);
-}
-
-/** Mobile **/
-@media screen and (max-width: 768px) {
-
-  /* index.html */
-  .topics-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  /* game.html */
-  .container-game {
-    width: 100%;
-  }
-
-  .container-lives-tries {
-    flex-direction: column;
-  }
-
-  .container-score-combo {
-    flex-direction: column;
-  }
-
-  #question {
-    text-wrap: balance;
-  }
-
-  #form {
-    & input {
-      width: 100%;
-    }
-
-    & button {
-      width: 100%;
-    }
-  }
-
-  .container-game-controls {
-    width: 100%;
-    flex-direction: column;
-
-    & .btn-skip-question {
-      width: 100%;
-    }
-
-    & .btn-back-to-menu {
-      width: 100%;
-    }
-  }
-
-  /** game over/finished section **/
-  .container-final-stats {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /** tutorial.html **/
-  .container-tutorial {
-    width: 100%;
-  }
-
-  ul {
-    padding-left: 2rem;
-  }
 }
 
 /** Swal **/
