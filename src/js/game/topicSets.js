@@ -160,11 +160,11 @@ const geographySet = {
     { question: '¿Cuál es la montaña más alta de África?', answer: ['Kilimanjaro'] },
     { question: '¿En qué país se encuentra la ciudad de Dubái?', answer: ['Emiratos Árabes Unidos', 'Emiratos Árabes'] },
     { question: '¿Qué cordillera atraviesa América del Norte?', answer: ['Montañas Rocosas'] },
-    { question: '¿Qué mar está al este de Italia?', answer: ['Mar Adriático'] },
+    { question: '¿Qué mar está al este de Italia?', answer: ['Mar Adriático', 'Adriático'] },
     { question: '¿Cuál es la capital de Sudáfrica?', answer: ['Pretoria'] },
-    { question: '¿Qué isla es famosa por sus estatuas moáis?', answer: ['Isla de Pascua'] },
+    { question: '¿Qué isla es famosa por sus estatuas moáis?', answer: ['Isla de Pascua', 'Pascua'] },
     { question: '¿Qué país sudamericano no tiene salida al mar?', answer: ['Bolivia'] },
-    { question: '¿Qué estrecho separa Asia de América?', answer: ['Estrecho de Bering'] },
+    { question: '¿Qué estrecho separa Asia de América?', answer: ['Estrecho de Bering', 'Bering'] },
     { question: '¿Cuál es la capital de Tailandia?', answer: ['Bangkok'] },
     { question: '¿Qué país tiene el mayor número de husos horarios?', answer: ['Francia'] },
     { question: '¿En qué país se encuentra el monte Fuji?', answer: ['Japón'] },
@@ -179,7 +179,7 @@ const geographySet = {
     { question: '¿Qué ciudad es famosa por su torre inclinada?', answer: ['Pisa'] },
     { question: '¿Cuál es el país más pequeño del mundo?', answer: ['Vaticano'] },
     { question: '¿Qué desierto es el más grande del planeta?', answer: ['Antártico'] },
-    { question: '¿Qué canal de navegación esta ubicado entre el mar Caribe y el océano Pacífico?', answer: ['Canal de Panamá'] }
+    { question: '¿Qué canal de navegación esta ubicado entre el mar Caribe y el océano Pacífico?', answer: ['Canal de Panamá', 'Panamá'] }
   ]
 }
 
@@ -192,9 +192,9 @@ const literatureSet = {
     { question: "¿Quién escribió 'El Principito'?", answer: ['Antoine Marie Jean-Baptiste Roger', 'Saint-Exupéry', 'Saint Exupéry'] },
     { question: "¿Quién escribió 'Alicia en el País de las Maravillas'?", answer: ['Lewis Carroll', 'Charles Lutwidge Dodgson'] },
     { question: "¿Qué autor escribió 'Matilda'?", answer: ['Roald Dahl'] },
-    { question: "¿Quién escribió la historia de 'Peter Pan'?", answer: ['James Matthew Barrie', 'J M Barrie', 'J. M. Barrie'] },
+    { question: "¿Quién escribió la historia de 'Peter Pan'?", answer: ['James Matthew Barrie', 'J M Barrie', 'JM Barrie', 'Barrie'] },
     { question: "¿Qué autor escribió 'Romeo y Julieta'?", answer: ['William Shakespeare', 'Shakespeare'] },
-    { question: "¿Quién escribió 'La isla del tesoro'?", answer: ['Robert Louis Stevenson', 'Robert Louis Balfour Stevenson', 'Robert L. Stevenson', 'R. L. Stevenson', 'R L Stevenson', 'RL Stevenson'] },
+    { question: "¿Quién escribió 'La isla del tesoro'?", answer: ['Robert Louis Stevenson', 'Robert Louis Balfour Stevenson', 'Robert L. Stevenson', 'R. L. Stevenson', 'R L Stevenson', 'RL Stevenson', 'Stevenson'] },
     { question: "¿Qué autor escribió 'Drácula'?", answer: ['Bram Stoker', 'Abraham Stoker'] },
     { question: "¿Quién escribió '20.000 leguas de viaje submarino'?", answer: ['Julio Verne', 'Jules Gabriel Verne'] },
     { question: "¿Qué autor escribió 'Moby Dick'?", answer: ['Herman Melville'] },
@@ -347,7 +347,7 @@ const tecnologySet = {
     { question: '¿Cuál fue el primer navegador web?', answer: ['Nexus'] },
     { question: '¿Qué protocolo se usa para enviar correos electrónicos?', answer: ['SMTP', 'Simple Mail Transfer Protocol', 'Protocolo de transferencia de correo electrónico simple'] },
     { question: '¿Qué sistema operativo está basado en el núcleo Linux?', answer: ['Ubuntu'] },
-    { question: '¿Quién es considerado el padre de la computación?', answer: ['Alan Turing'] },
+    { question: '¿Quién es considerado el padre de la computación?', answer: ['Alan Turing', 'Turing'] },
     { question: '¿Qué red social fue originalmente para universitarios?', answer: ['Facebook'] },
     { question: '¿Qué es un archivo ".exe"', answer: ['Archivo ejecutable', 'Ejecutable', 'Executable'] },
     { question: '¿Qué protocolo se usa para transferir páginas web?', answer: ['HTTP', 'Hypertext Transfer Protocol', 'Protocolo de transferencia de hipertexto'] },
@@ -357,7 +357,7 @@ const tecnologySet = {
     { question: '¿Cuál es el nombre del asistente virtual de Amazon?', answer: ['Alexa'] },
     { question: '¿Qué empresa lanzó el procesador M1?', answer: ['Apple'] }, ,
     { question: '¿Qué sistema operativo se usa en la mayoría de servidores web?', answer: ['Linux'] },
-    { question: "¿Qué significa 'IoT'?", answer: ['Internet de las cosas'] },
+    { question: "¿Qué significa 'IoT'?", answer: ['Internet de las cosas', 'Internet of Things'] },
     { question: '¿Qué red social popularizó el formato de historias de 24h?', answer: ['Snapchat'] },
     { question: '¿Cuál es el lenguaje de consulta para bases de datos relacionales?', answer: ['SQL', 'Structured Query Language', 'Lenguaje de consulta estructurada'] },
     { question: '¿Qué herramienta se usa para controlar versiones de código?', answer: ['Git'] },
