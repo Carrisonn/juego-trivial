@@ -1,6 +1,6 @@
 import { topicsSet } from './game/topicSets.js'
 
-(function createTopicCards() {
+(() => {
   const $topicContainer = document.querySelector('.topics-container')
 
   topicsSet.forEach((topicObj, index) => {
